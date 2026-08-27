@@ -14,6 +14,12 @@ return {
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
               ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+              ["<C-v>"] = false, -- stop Telescope from eating Ctrl-v
+              ["<leader>v"] = actions.select_vertical,
+            },
+            n = { -- Normal mode inside the picker
+              ["<C-v>"] = false,
+              ["<leader>v"] = actions.select_vertical,
             },
           },
         },
