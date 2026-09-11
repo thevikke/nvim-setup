@@ -1,3 +1,4 @@
+local scroll = require("scroll")
 return {
   {
     "lewis6991/gitsigns.nvim",
@@ -48,29 +49,27 @@ return {
     },
     keymaps = {
       view = {
-        { "n", "<C-l>", "zz", { desc = "Center line" } },
+        { "n", "<c-l>", scroll.line_above_center, { desc = "line above center" } },
         {
-          "n",
-          "ö",
+          "n", "ö",
           function()
             vim.cmd("normal! ]c")
-            vim.cmd("normal! zz")
+            require("scroll").line_above_center()
           end,
-          { desc = "Next change + center" },
+          { desc = "next change + center" },
         },
         {
-          "n",
-          "ä",
+          "n", "ä",
           function()
             vim.cmd("normal! [c")
-            vim.cmd("normal! zz")
+            require("scroll").line_above_center()
           end,
-          { desc = "Prev change + center" },
+          { desc = "prev change + center" },
         },
       },
-      file_panel = {
-        { "n", "<C-l>", "zz", { desc = "Center line" } },
-      },
+    file_panel = {
+      { "n", "<C-l>", scroll.line_above_center, { desc = "Line above center" } },
+    },
     },
     hooks = {
       diff_buf_read = function()
