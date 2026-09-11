@@ -19,7 +19,16 @@ vim.keymap.set('x', 'x', '"+d', { noremap = true, silent = true })
 -- Enables deleting one character with pressing x instead of also copying that character.
 vim.keymap.set('n', 'x', '"_x', { noremap = true, silent = true })
 -- Control + l to to center the screen.
-vim.keymap.set('n', '<C-l>', 'zz', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<C-l>', 'zz', { noremap = true, silent = true })
+vim.keymap.set("n", "<C-l>", function()
+  local h = vim.api.nvim_win_get_height(0)
+  local lnum = vim.fn.line(".")
+  local from_top = math.floor(h * 0.25) -- smaller = higher
+  vim.fn.winrestview({
+    lnum = lnum,
+    topline = math.max(1, lnum - from_top),
+  })
+end, { noremap = true, silent = true, desc = "Line above center" })
 vim.opt.wrap = false          -- horizontal scroll only works with nowrap
 vim.opt.sidescrolloff = 999   -- keep cursor in the middle horizontally
 -- Visual mode tab moving text back and forward.

@@ -11,7 +11,7 @@ return {
     custom_highlights = function(c)
       local U = require("catppuccin.utils.colors")
       return {
-        DiffAdd    = { bg = U.darken(c.green,  0.30, c.base) },
+        DiffAdd    = { bg = U.darken(c.green,  0.60, c.base) },
         DiffDelete = { bg = U.darken(c.red,    0.30, c.base) },
         DiffChange = { bg = U.darken(c.blue,   0.20, c.base) },
         DiffText   = { bg = U.darken(c.yellow, 0.35, c.base), bold = true },
