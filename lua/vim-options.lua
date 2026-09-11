@@ -20,6 +20,8 @@ vim.keymap.set('x', 'x', '"+d', { noremap = true, silent = true })
 vim.keymap.set('n', 'x', '"_x', { noremap = true, silent = true })
 -- Control + l to to center the screen.
 vim.keymap.set('n', '<C-l>', 'zz', { noremap = true, silent = true })
+vim.opt.wrap = false          -- horizontal scroll only works with nowrap
+vim.opt.sidescrolloff = 999   -- keep cursor in the middle horizontally
 -- Visual mode tab moving text back and forward.
 vim.keymap.set('v', '<Tab>', '>gv', { noremap = true, silent = true })
 vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true, silent = true })

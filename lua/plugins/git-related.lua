@@ -25,14 +25,76 @@ return {
   },
 
   -- diffview
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
-    keys = {
-      { "<leader>gd", "<cmd>DiffviewOpen<cr>",  desc = "Git Diffview" },
-      { "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+{
+  "sindrets/diffview.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  cmd = {
+    "DiffviewOpen",
+    "DiffviewClose",
+    "DiffviewFileHistory",
+    "DiffviewToggleFiles",
+  },
+  keys = {
+    { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview open" },
+    { "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Diffview close" },
+    { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
+    { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo history" },
+  },
+  opts = {
+    enhanced_diff_hl = true,
+    view = {
+      default = { layout = "diff2_horizontal" },
+      file_history = { layout = "diff2_horizontal" },
+    },
+    keymaps = {
+      view = {
+        { "n", "<C-l>", "zz", { desc = "Center line" } },
+        {
+          "n",
+          "ö",
+          function()
+            vim.cmd("normal! ]c")
+            vim.cmd("normal! zz")
+          end,
+          { desc = "Next change + center" },
+        },
+        {
+          "n",
+          "ä",
+          function()
+            vim.cmd("normal! [c")
+            vim.cmd("normal! zz")
+          end,
+          { desc = "Prev change + center" },
+        },
+      },
+      file_panel = {
+        { "n", "<C-l>", "zz", { desc = "Center line" } },
+      },
+    },
+    hooks = {
+      diff_buf_read = function()
+        vim.opt_local.wrap = false
+        vim.opt_local.list = false
+      end,
+      diff_buf_win_enter = function()
+        vim.opt_local.foldenable = false
+        vim.opt_local.foldmethod = "manual"
+        vim.cmd("normal! zR")
+      end,
     },
   },
+  config = function(_, opts)
+    require("diffview").setup(opts)
+    vim.opt.diffopt:append({
+      "algorithm:histogram",
+      "indent-heuristic",
+      "linematch:60",
+      "context:99999",
+    })
+    vim.opt.fillchars:append({ diff = "╱" })
+  end,
+},
 
   -- neogit
   {
