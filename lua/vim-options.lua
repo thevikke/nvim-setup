@@ -40,6 +40,11 @@ vim.keymap.set('n', '<Tab>', '>>', { noremap = true, silent = true })
 vim.keymap.set('n', '<S-Tab>', '<<', { noremap = true, silent = true })
 
 -- ======================
+-- Oil nvim
+-- ======================
+vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
+
+-- ======================
 -- Window Management
 -- ======================
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Vertical split" })
