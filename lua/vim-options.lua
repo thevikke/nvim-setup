@@ -18,6 +18,9 @@ vim.keymap.set('n', '<leader>O', 'O<Esc>', { desc = "New line above, stay in Nor
 vim.keymap.set('x', 'x', '"+d', { noremap = true, silent = true })
 -- Enables deleting one character with pressing x instead of also copying that character.
 vim.keymap.set('n', 'x', '"_x', { noremap = true, silent = true })
+
+-- Switch buffers between windows.
+-- CTRL + w + x
 -- Control + l to to center the screen.
 -- vim.keymap.set('n', '<C-l>', 'zz', { noremap = true, silent = true })
 local scroll = require("scroll")
