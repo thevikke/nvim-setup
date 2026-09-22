@@ -8,8 +8,14 @@ return {
   build = ":TSUpdate",
   config = function()
     require("nvim-treesitter").setup()
-    local ensure_installed = { "lua", "javascript", "markdown", "markdown_inline", "dart" }
+    local ensure_installed = { "lua", "javascript", "markdown", "markdown_inline", "dart", "go", "pascal"}
     require("nvim-treesitter").install(ensure_installed)
+
+    vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
   end,
 }
 
