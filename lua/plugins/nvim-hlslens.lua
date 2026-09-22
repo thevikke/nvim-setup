@@ -16,6 +16,6 @@ return {
     map("n", "g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 
     -- Clear search.
-    map("n", "<Leader>l", "<Cmd>noh<CR>", kopts)
+    map("n", "<Leader>ö", "<Cmd>noh<CR>", kopts)
   end,
 }
