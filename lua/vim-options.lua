@@ -40,6 +40,13 @@ vim.keymap.set('n', '<Tab>', '>>', { noremap = true, silent = true })
 vim.keymap.set('n', '<S-Tab>', '<<', { noremap = true, silent = true })
 
 -- ======================
+-- Relative line numbers.
+-- ======================
+-- Current line shows real line number.
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
+
+-- ======================
 -- Oil nvim
 -- ======================
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
