@@ -62,6 +62,12 @@ vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
 vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "Equalize splits" })
 vim.keymap.set("n", "<leader>sx", ":close<CR>", { desc = "Close current split" })
 
+-- Resize window
+vim.keymap.set("n", "<C-Up>",    "<C-w>+", { desc = "taller" })
+vim.keymap.set("n", "<C-Down>",  "<C-w>-", { desc = "shorter" })
+vim.keymap.set("n", "<C-Left>",  "<C-w><", { desc = "narrower" })
+vim.keymap.set("n", "<C-Right>", "<C-w>>", { desc = "wider" })
+
 -- avigate between windows
 vim.keymap.set("n", "<leader>h", "<C-w>h", { desc = "Go to left window" })
 vim.keymap.set("n", "<leader>j", "<C-w>j", { desc = "Go to lower window" })
