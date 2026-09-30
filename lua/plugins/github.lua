@@ -1,0 +1,40 @@
+return {
+  "otavioschwanck/github-pr-reviewer.nvim",
+  cmd = {
+    "PR",
+    "PRReviewMenu",
+    "PRReview",
+    "PRListReviewRequests",
+    "PRReviewCleanup",
+    "PRReviewBuffer",
+    "PRInfo",
+    "PROpen",
+    "PRLoadLastSession",
+    "PRLineComment",
+    "PRPendingComment",
+    "PRListAllComments",
+    "PRReply",
+    "PRApprove",
+    "PRRequestChanges",
+  },
+  opts = {
+    branch_prefix = "reviewing_",
+    picker = "telescope", -- or "fzf-lua" or "native"
+    open_files_on_review = true,
+    show_comments = true,
+    show_inline_diff = true,
+    show_floats = true,
+    pr_list_limit = 30,
+    mark_as_viewed_key = "<CR>",
+    diff_view_toggle_key = "<C-v>", -- unified vs side-by-side
+    toggle_floats_key = "<C-r>",
+    next_hunk_key = "<C-j>",
+    prev_hunk_key = "<C-k>",
+    next_file_key = "<C-l>",
+    prev_file_key = "<C-h>",
+  },
+  keys = {
+    { "<leader>p", "<cmd>PRReviewMenu<cr>", desc = "PR Review Menu", mode = "n" },
+    { "<leader>p", ":<C-u>'<,'>PRSuggestChange<CR>", desc = "Suggest change", mode = "v" },
+  },
+}
