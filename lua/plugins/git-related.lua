@@ -44,8 +44,8 @@ return {
       "<leader>od",
       function()
         local function has_ref(ref)
-          return vim.fn.system({ "git", "rev-parse", "--verify", "--quiet", ref }):gsub("%s+", "") ~= ""
-            and vim.v.shell_error == 0
+          vim.fn.system({ "git", "rev-parse", "--verify", "--quiet", ref })
+          return vim.v.shell_error == 0
         end
 
         local base
@@ -64,52 +64,57 @@ return {
         vim.cmd("DiffviewOpen " .. base .. "...HEAD")
       end,
       desc = "Diffview: PR range vs main/master",
-    }
-  },
-  opts = {
-    enhanced_diff_hl = true,
-    view = {
-      default = { layout = "diff2_horizontal" },
-      file_history = { layout = "diff2_horizontal" },
     },
-    keymaps = {
+  },
+  config = function()
+    local actions = require("diffview.actions")
+    local scroll = require("scroll")
+
+    require("diffview").setup({
+      enhanced_diff_hl = true,
       view = {
-        { "n", "<c-l>", scroll.line_above_center, { desc = "line above center" } },
-        {
-          "n", "ö",
-          function()
-            vim.cmd("normal! ]c")
-            require("scroll").line_above_center()
-          end,
-          { desc = "next change + center" },
+        default = { layout = "diff2_horizontal" },
+        file_history = { layout = "diff2_horizontal" },
+      },
+      keymaps = {
+        view = {
+          { "n", "<leader>cl", actions.cycle_layout, { desc = "Cycle diff layout" } },
+          { "n", "<c-l>", scroll.line_above_center, { desc = "Line above center" } },
+          {
+            "n", "ö",
+            function()
+              vim.cmd("normal! ]c")
+              require("scroll").line_above_center()
+            end,
+            { desc = "Next change + center" },
+          },
+          {
+            "n", "ä",
+            function()
+              vim.cmd("normal! [c")
+              require("scroll").line_above_center()
+            end,
+            { desc = "Prev change + center" },
+          },
         },
-        {
-          "n", "ä",
-          function()
-            vim.cmd("normal! [c")
-            require("scroll").line_above_center()
-          end,
-          { desc = "prev change + center" },
+        file_panel = {
+          { "n", "<leader>cl", actions.cycle_layout, { desc = "Cycle diff layout" } },
+          { "n", "<C-l>", scroll.line_above_center, { desc = "Line above center" } },
         },
       },
-    file_panel = {
-      { "n", "<C-l>", scroll.line_above_center, { desc = "Line above center" } },
-    },
-    },
-    hooks = {
-      diff_buf_read = function()
-        vim.opt_local.wrap = false
-        vim.opt_local.list = false
-      end,
-      diff_buf_win_enter = function()
-        vim.opt_local.foldenable = false
-        vim.opt_local.foldmethod = "manual"
-        vim.cmd("normal! zR")
-      end,
-    },
-  },
-  config = function(_, opts)
-    require("diffview").setup(opts)
+      hooks = {
+        diff_buf_read = function()
+          vim.opt_local.wrap = false
+          vim.opt_local.list = false
+        end,
+        diff_buf_win_enter = function()
+          vim.opt_local.foldenable = false
+          vim.opt_local.foldmethod = "manual"
+          vim.cmd("normal! zR")
+        end,
+      },
+    })
+
     vim.opt.diffopt:append({
       "algorithm:histogram",
       "indent-heuristic",
@@ -120,7 +125,7 @@ return {
   end,
 },
 
-  -- neogit
+-- neogit
   {
     "NeogitOrg/neogit",
     dependencies = {
