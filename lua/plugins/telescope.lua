@@ -9,6 +9,8 @@ return {
 
       require("telescope").setup({
         defaults = {
+          -- Still skip bulky dirs when hidden/gitignored files (e.g. .env) are shown.
+          file_ignore_patterns = { "node_modules", "%.git/", "dist/", "coverage/" },
           mappings = {
             i = {
               ["<C-j>"] = actions.move_selection_next,
@@ -21,6 +23,17 @@ return {
               ["<C-v>"] = false,
               ["<leader>v"] = actions.select_vertical,
             },
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+            no_ignore = true,
+          },
+          live_grep = {
+            additional_args = function()
+              return { "--hidden", "--no-ignore", "--glob", "!node_modules/**", "--glob", "!.git/**" }
+            end,
           },
         },
       })

@@ -4,6 +4,9 @@ return {
   ---@type oil.SetupOpts
   opts = {
     default_file_explorer = true,
+    view_options = {
+      show_hidden = true,
+    },
     keymaps = {
       ["<C-h>"] = false,
       ["<C-l>"] = false,
