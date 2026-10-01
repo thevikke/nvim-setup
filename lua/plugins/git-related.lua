@@ -40,6 +40,31 @@ return {
     { "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Diffview close" },
     { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
     { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo history" },
+    {
+      "<leader>od",
+      function()
+        local function has_ref(ref)
+          return vim.fn.system({ "git", "rev-parse", "--verify", "--quiet", ref }):gsub("%s+", "") ~= ""
+            and vim.v.shell_error == 0
+        end
+
+        local base
+        for _, ref in ipairs({ "origin/main", "origin/master", "main", "master" }) do
+          if has_ref(ref) then
+            base = ref
+            break
+          end
+        end
+
+        if not base then
+          vim.notify("No main or master branch found", vim.log.levels.WARN)
+          return
+        end
+
+        vim.cmd("DiffviewOpen " .. base .. "...HEAD")
+      end,
+      desc = "Diffview: PR range vs main/master",
+    }
   },
   opts = {
     enhanced_diff_hl = true,
