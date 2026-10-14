@@ -10,6 +10,9 @@ return {
     keymaps = {
       ["<C-h>"] = false,
       ["<C-l>"] = false,
+      -- Oil binds <C-p> to preview. Remove it so Telescope find_files can run.
+      ["<C-p>"] = false,
+      ["<leader>p"] = "actions.preview",
       ["<C-v>"] = { "actions.select", opts = { vertical = true } },
       ["<C-x>"] = { "actions.select", opts = { horizontal = true } },
       ["<leader>or"] = "actions.refresh",
